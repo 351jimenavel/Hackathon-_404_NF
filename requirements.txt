@@ -1,0 +1,8 @@
+Flask
+python-dotenv
+requests
+SpeechRecognition
+openai==0.28
+spotipy
+qrcode
+Pillow
