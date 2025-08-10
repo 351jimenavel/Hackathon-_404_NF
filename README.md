@@ -21,7 +21,8 @@ A través de texto o voz, la app detecta tu estado de ánimo usando la **API de 
 **APIs:**
 - OpenAI API (análisis de emociones en texto/voz)
 - Spotify API (creación de playlists)
-**Otros:** GitHub, Replit (testing), SpeechRecognition (entrada por voz)  
+  
+**Otros:** GitHub, Replit (testing)
 
 ---
 
