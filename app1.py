@@ -12,8 +12,8 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = "http://127.0.0.1:8000/callback"
-SCOPE = "playlist-modify-public"
+REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
+SCOPE = os.getenv("SCOPE")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
