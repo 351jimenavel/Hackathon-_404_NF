@@ -8,34 +8,72 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* base */
     body {
       font-family: 'Work Sans', sans-serif;
     }
+
+  
+  :root{
+    /* Color de encuentro entre header y body (tu celeste) */
+    --wave-meet: #a6c4f43c;
+    /* Inicio del degradado del header a6c4f4c5*/
+    --header-start: #007BE5;
+    /* Color base debajo del gradiente (evita “línea” con transparent) */
+    --page-base: #eaf2ff;
+    }
+
+
+    /* light (por defecto) */
+    body:not(.dark){
+      background:
+    linear-gradient(to bottom,
+      var(--wave-meet) 0%,      /* #a6c4f4 al 100% */
+      rgba(166,196,244,0) 60%      /* se desvanece al 0% opacidad */
+    ),
+    var(--page-base);
+      /*background: linear-gradient(to bottom, #a6c4f4, transparent);*/
+    }
+
 
     header.wave-header {
       position: relative;
       width: 100%;
       height: 220px;
-      background: linear-gradient(to bottom, #007BE5, #a6c4f4);
+      /*background: linear-gradient(to bottom, #007BE5, #a6c4f4); */
+      background: linear-gradient(to bottom, var(--header-start) 0%, var(--wave-meet) 100%);
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       text-align: center;
-
     }
+
+
+    header.wave-header::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-3px; height:3px;
+    background:#a6c4f4; /* tira una fajita sólida que tapa la costura */
+  }
+
+    button:hover:not(.dark){
+      background-color: rgba(1, 1, 195, 0.849);
+    }
+
 /*background: linear-gradient(to bottom right, #007BE5, #a6c4f4);*/
     .wave {
       position: absolute;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
       width: 200%;
       height: 100px;
       background: url('/static/wave-Photoroom.png');
+      background-repeat:repeat-x;
       background-size: 50% 100px;
       animation: wave-animation 10s linear infinite;
-      opacity: 0.2;
+      opacity: 0.3;
+      pointer-events: none;
     }
 
     @keyframes wave-animation {
@@ -53,50 +91,81 @@
     }
 
         /* Modo oscuro */
-    .dark {
-        background-color: #0c0b0b;
+    /* .dark {
+        background-color: transparent;
         color: white;
         transition: background-color 1s, color 1s;
+    } */
+
+    :root{
+      --meet-dark: #2500e0e6; /* mismo que se usa al final del header dark */
+      --dark-fade: #0801d5a7;
     }
 
+    body.dark {
+      background: linear-gradient(to bottom, #2e0ae4b4, #0801d5a7);
+      /*background: linear-gradient(to bottom, #2500e0e6, #0801d521);*/
+    }
+    body.dark header.wave-header{
+        background: linear-gradient(to bottom, #140e2a, #2500e0e6);
+        /*background: linear-gradient(to bottom, #140e2a, #2500e0e6);
+        /*background: linear-gradient(to bottom, #0c0b0b, #0b003fe6);*/
+    }
+
+
+
     .dark header{
-         background-color: rgb(12, 11, 11);
-         color: white;
+        /*background-color: rgb(12, 11, 11);*/
+        color: white;
     }
     .dark footer{
-        background-color: #1b1010e6;
+        background-color: #190b5a;
         color: white;
     }
     .dark form {
-        background-color: #1b1010e6;
+        background-color: rgba(36, 10, 167, 0.836);
         color: white;
     }
 
     .dark input,
     .dark textarea {
-        background-color: #281919;
-        color: white;
+        background-color: rgb(36, 10, 167);
+        color: rgb(255, 255, 255);
+    }
+
+    .dark button.microphone {
+        background-color: #190b5a;
+        padding: 8px 15px 8px;
     }
 
     .dark button {
-        background-color: #281919;
-        border: 1px solid white;
+        background-color: #190b5a;
+        border: 1px solid rgb(1, 0, 44);
         color: white;
     }
-    .dark header.wave-header{
-        background: linear-gradient(to bottom, #0c0b0b, #1b1010e6);
+
+    .dark button:hover {
+        background-color: #023c7e;
     }
+
+    .dark label {
+      color: white;
+    }
+
+    .dark span {
+      color: white;
+    }
+
 
     /*bg-gradient-to-b from-indigo-100 via-blue-50 to-white */
   </style>
 </head>
-<body class="min-h-screen text-gray-800
-             bg-gradient-to-b from-[#a6c4f4] to-transparent">
+<body class="min-h-screen text-gray-800">
   
   <!-- HEADER CON OLAS -->
   <header class="wave-header">
     <!--Boton Dark Mode-->
-      <button class="absolute top-4 right-4 bg-black px-2 py-1 rounded shadow hover:bg-navy" id="darkMode">
+      <button class="absolute top-4 right-4 bg-blue-800 px-2 py-1 rounded shadow hover:bg-navy" id="darkMode">
           <img src="https://cdn-icons-png.flaticon.com/512/850/850247.png" alt="Imagen de luna" class="w-6 h-6">
       </button>
     <div class="header-content">
@@ -112,7 +181,7 @@
       <div>
         <label class="block text-stone-900 text-lg mb-2">Exprésate: </label>
         <input id="estadoInput" type="text" name="estado_animo" required="" placeholder="Ej. alegre, melancólico, motivado..." class="flex-1 border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-[91%]">
-          <button type="button" onclick="escuchar()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
+          <button type="button" onclick="escuchar()" class="microphone bg-blue-600 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg">
             🎤
           </button>
       </div>
@@ -120,7 +189,7 @@
       <div>
         <label class="block text-stone-900 text-lg mb-2">Elige tu plataforma musical:</label>
         <div class="flex flex-wrap gap-4 text-gray-700">
-         
+        
 
 
             <label class="flex-1 min-w-[140px]">
@@ -151,7 +220,7 @@
       </div>
 
       <button type="submit"
-        class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition duration-300">
+        class="w-full bg-blue-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition duration-300">
         Generar Canciones
       </button>
     </form>
@@ -200,7 +269,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="mt-16 text-center text-sm bg-indigo-100 py-4 text-indigo-700 font-semibold">
+  <footer class="mt-16 text-center text-sm bg-blue-300 py-4 text-indigo-700 font-semibold">
     <p>Mood Wave - Tus emociones. Tu música.</p>
     <p>&copy; 2025</p>
   </footer>
