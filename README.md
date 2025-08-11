@@ -28,21 +28,33 @@ A través de texto o voz, la app detecta tu estado de ánimo usando la **API de 
 
 ## 📦 Instalación
 ```bash
-# Clonar el repositorio
+# 1. Clonar el repositorio
 git clone https://github.com/351jimenavel/Hackathon-_404_NF.git
 cd Hackathon-_404_NF
 
-# Instalar dependencias
+# 2. Instalar dependencias
 pip install -r requirements.txt
 
-# Configurar variables de entorno (OpenAI & Spotify)
-# Crea un archivo .env:
-OPENAI_API_KEY=tu_api_key
-SPOTIFY_CLIENT_ID=tu_spotify_id
-SPOTIFY_CLIENT_SECRET=tu_spotify_secret
-SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
+# 3. Configuración de Variables de Entorno
+# Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 
-# Ejecutar la aplicación
+# (a) Clave de API de OpenAI (para análisis de emociones y generación de texto)
+OPENAI_API_KEY=tu_api_key
+
+# (b) Credenciales de Spotify (desde el Dashboard de Spotify Developers)
+SPOTIFY_CLIENT_ID=tu_client_id_aqui
+SPOTIFY_CLIENT_SECRET=tu_client_secret_aqui
+
+# (c) URL de redirección de Spotify
+# Para entorno local, usar:
+SPOTIFY_REDIRECT_URI=http://127.0.0.1:8000/callback
+
+# (d) Define los permisos que la aplicación solicitará a Spotify
+SCOPE=playlist-modify-public
+
+# Nota: Este valor debe coincidir EXACTAMENTE con el configurado en el Dashboard de Spotify Developers.
+
+# 4. Ejecutar la aplicación
 python app1.py
 ```
 ---
